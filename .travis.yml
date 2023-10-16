@@ -3,5 +3,17 @@ python:
   - "3.9"
 install:
   - pip install -r requirements.txt
+before_script:
+  - python manage.py migrate
+  - python manage.py collectstatic --noinput
 script:
-  - python manage.py test
+  - black --check .
+  - flake8 .
+  - coverage run manage.py test
+after_script:
+  - coveralls
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "django-tutorial"
+  env: "django-env"

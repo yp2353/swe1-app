@@ -17,3 +17,6 @@ deploy:
   region: "us-west-2"
   app: "django-tutorial"
   env: "django-env"
+  on:
+      branch:
+        - main
